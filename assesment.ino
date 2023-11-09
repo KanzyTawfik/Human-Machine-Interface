@@ -43,3 +43,35 @@ init();
         mintemp --;  //left button decreases max temperature temp threshold
          LCD_String_xy (0, 1, mintemp); //print new min value (-1)
         }
+if (tempC > maxtemp || tempC < mintemp){ //if statement for temperature values if max or min values are exceeded
+      DIO_SetPinDirection('d', 3, 'h');
+      PORTD |= _BV(PORTD3); // buzzer on
+    }
+    else { //temrature value stays between limits
+        DIO_SetPinState('d', 3, 'l');
+        PORTD &= ~_BV(PORTD3); // buzzer off 
+    }
+
+
+    tostring(tempstr, tempC);
+    
+    LCD_String_xy (0, 0, "Temp: "); // prints "Temp: " at row 0 and column 0
+    LCD_String_xy (0, 8, tempstr);
+    LCD_String_xy(0, 11 ,"C");
+    
+    tostring(tempstr, mintemp);
+    
+    LCD_String_xy (1, 0, "Min:"); // prints "Min:" at row 1 and column 8
+    LCD_String_xy (1, 4, tempstr); // prints temperature min at row 1 and column 12
+    
+    tostring(tempstr, maxtemp);
+    
+    LCD_String_xy (1, 8, "Max:"); // prints "Max:" at row 1 and column 0
+    LCD_String_xy (1, 12, tempstr); // prints temperature max at row 1 and column 4
+
+     
+    _delay_ms(500);
+  }
+
+  return 0; 
+}
