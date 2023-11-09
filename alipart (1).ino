@@ -25,3 +25,21 @@ init();
     float tempC = Adc_ReadChannel(1)/3.8; // reads analogue input at channel 1 (temperature sensor)
 		 
     LCD_Clear(); //clears LCD
+
+// changing max and min buttons on lcd
+      if (button < 100){ 
+        mintemp ++;  //right button increases min temperature temp threshold
+        LCD_String_xy (0, 1, mintemp); //print new min value (+1)
+      }
+      else if (button < 200) {
+        maxtemp ++;  // up button increases max temperature temp threshold
+         LCD_String_xy (0, 1,maxtemp); //print new max value (+1)
+      }
+      else if (button < 400){
+        maxtemp --;  //down button decreases max temperature temp threshold
+         LCD_String_xy (0, 1, maxtemp); //print new max value (-1)
+      }  
+        else if (button < 600){
+        mintemp --;  //left button decreases max temperature temp threshold
+         LCD_String_xy (0, 1, mintemp); //print new min value (-1)
+        }
